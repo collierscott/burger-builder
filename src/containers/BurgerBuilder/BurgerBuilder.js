@@ -22,17 +22,20 @@ class BurgerBuilder extends Component {
     // }
 
     state = {
-        ingredients: {
-            salad: 0,
-            bacon: 0,
-            cheese: 0,
-            meat: 0
-        },
+        ingredients: null,
         totalPrice: 4,
         purchasable: false,
         purchasing: false,
         loading: false
     };
+
+    componentDidMount () {
+        axios.get('/Ingredients')
+            .then(response => {
+                console.log(response.data.results);
+                this.setState({ingredients: response.data.results});
+            });
+    }
 
     updatePurchaseState = (ingredients) => {
         const sum = Object.keys(ingredients)
