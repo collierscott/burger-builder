@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AuxWrapper from '../../hoc/AuxWrapper';
-import Toolbar from '../Navigation/Toolbar/Toolbar';
-import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
+import Aux from '../Aux/Aux';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import classes from './Layout.css';
 
 class Layout extends Component {
@@ -21,7 +21,7 @@ class Layout extends Component {
 
     render() {
         return (
-            <AuxWrapper>
+            <Aux>
                 <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
                 <SideDrawer
                     closed={this.sideDrawerClosedHandler}
@@ -30,7 +30,7 @@ class Layout extends Component {
                 <main className={classes.Content}>
                     {this.props.children}
                 </main>
-            </AuxWrapper>
+            </Aux>
         )
     }
 }
