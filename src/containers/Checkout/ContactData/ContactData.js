@@ -18,7 +18,6 @@ class ContactData extends Component {
     orderHandler = (event) => {
         event.preventDefault();
         this.setState({ loading: true });
-        
         const order = {
             ingredients: this.props.ingredients,
             //Make sure to recalculate on the server
@@ -41,10 +40,11 @@ class ContactData extends Component {
                 response => {
                     console.log(response);
                     this.setState({loading: false});
-                    this.props.history.push('/');
+                    this.props.history.replace('/');
                 }
             )
-            .catch (error => {
+            .catch(
+                error => {
                     console.log(error);
                     this.setState({loading: false});
                 }
