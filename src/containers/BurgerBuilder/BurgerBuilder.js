@@ -35,7 +35,8 @@ class BurgerBuilder extends Component {
             .then(response => {
                 // Convert the array of ingredients and amounts to an object
                 let ingregientsResult =  Object.assign(...response.data.results
-                    .map(d => ({[d.name]: d.amount})));
+                    .map(d => ({[d.name]: d.amount}))
+                );
                 this.setState({ingredients: ingregientsResult});
             })
             .catch(error => {
