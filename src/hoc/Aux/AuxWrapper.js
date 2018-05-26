@@ -1,5 +1,5 @@
-const aux = (props) => {
+const auxWrapper = (props) => {
     return props.children;
 };
 
-export default aux;
+export default auxWrapper;
