@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from '../../axios-orders';
 
-import { addIngredient, removeIngredient, initIngredients } from '../../store/actions/index';
+import *as actions from '../../store/actions/index';
 import AuxWrapper from '../../hoc/AuxWrapper/AuxWrapper';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -98,17 +98,17 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
   return {
-      ings: state.ingredients,
-      price: state.totalPrice,
-      error: state.error
+      ings: state.burgerBuilder.ingredients,
+      price: state.burgerBuilder.totalPrice,
+      error: state.burgerBuilder.error
   }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded: (ingName) => dispatch(addIngredient(ingName)),
-        onIngredientRemoved: (ingName) => dispatch(removeIngredient(ingName)),
-        onInitIngredients: () => dispatch(initIngredients())
+        onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
+        onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(actions.initIngredients())
     }
 };
 
