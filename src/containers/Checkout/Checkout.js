@@ -7,7 +7,7 @@ class Checkout extends Component {
     state = {
         ingredients: null,
         totalPrice: 0
-    }
+    };
 
     // Before rendering children
     componentWillMount() {
@@ -30,11 +30,11 @@ class Checkout extends Component {
 
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
-    }
+    };
 
     checkoutContinuesHandler = () => {
         this.props.history.replace('/checkout/contact-data');
-    }
+    };
 
     render () {
         return (

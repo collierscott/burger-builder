@@ -19,7 +19,7 @@ class ContactData extends Component {
                     required: true
                 },
                 valid: false,
-                toutched: false
+                touched: false
             },
             street: {
                 elementType: 'input',
@@ -32,7 +32,7 @@ class ContactData extends Component {
                     required: true
                 },
                 valid: false,
-                toutched: false
+                touched: false
             },    
             zipCode: {
                 elementType: 'input',
@@ -47,7 +47,7 @@ class ContactData extends Component {
                     maxLength: 5
                 },
                 valid: false,
-                toutched: false
+                touched: false
             },
             country: {
                 elementType: 'input',
@@ -60,7 +60,7 @@ class ContactData extends Component {
                     required: true
                 },
                 valid: false,
-                toutched: false
+                touched: false
             },
             email: {
                 elementType: 'input',
@@ -73,7 +73,7 @@ class ContactData extends Component {
                     required: true
                 },
                 valid: false,
-                toutched: false
+                touched: false
             },
             deliveryMethod: {
                 elementType: 'select',
@@ -90,7 +90,7 @@ class ContactData extends Component {
         },
         formIsValid: false,
         loading: false
-    }
+    };
 
     checkValidity (value, rules) {
         let isValid = true;
@@ -145,14 +145,14 @@ class ContactData extends Component {
                     this.setState({loading: false});
                 }
             );
-    }
+    };
 
     inputChangedHandler = (event, inputIdentifier) => {
         //console.log(event.target.value);
         //Need to clone deeply
         const updatedOrderForm = {
             ...this.state.orderForm
-        }
+        };
 
         const updatedFormElement = {
             ...updatedOrderForm[inputIdentifier]
@@ -169,7 +169,7 @@ class ContactData extends Component {
         }
 
         this.setState({orderForm: updatedOrderForm,  formIsValid:  formIsValid});
-    }
+    };
 
     render() {
         const formElementsArray = [];
