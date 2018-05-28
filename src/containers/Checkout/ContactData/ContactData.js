@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from '../../../axios-orders';
+import { connect } from 'react-redux';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
@@ -124,9 +125,9 @@ class ContactData extends Component {
         }
 
         const order = {
-            ingredients: this.props.ingredients,
+            ingredients: this.props.ings,
             //Make sure to recalculate on the server
-            price: this.props.price,
+            price: this.props.price.toString(),
             orderData: formData
         };
 
@@ -210,5 +211,12 @@ class ContactData extends Component {
         )
     }
 }
+const mapStateToProps = state => {
+    // NOTE: The name properties for states have to match what is in reducer.js
+    return {
+        ings: state.ingredients,
+        price: state.totalPrice
+    }
+};
 
-export default ContactData;
+export default connect(mapStateToProps)(ContactData);
