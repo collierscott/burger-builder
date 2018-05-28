@@ -3,8 +3,13 @@ import {Route, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
+import * as actions from '../../store/actions/index';
 
 class Checkout extends Component {
+
+    componentDidMount () {
+        this.props.onInitPurchase();
+    }
 
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
@@ -40,5 +45,13 @@ const mapStateToProps = state => {
         ings: state.burgerBuilder.ingredients
     }
 };
+
+const mapDispatchToProps = dispatch => {
+    // NOTE: The name properties for states have to match what is in reducer.js
+    return {
+        onInitPurchase: () => dispatch(actions.purchaseInit())
+    }
+};
+
 //NOTE: mapStateToProps has to be first always. If none, then null
 export default connect(mapStateToProps)(Checkout);
