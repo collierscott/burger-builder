@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../../axios-orders';
 import { connect } from 'react-redux';
-import { addIngredient, removeIngredient } from '../../store/actions/actions';
+import { addIngredient, removeIngredient } from '../../store/actions/index';
 
 import AuxWrapper from '../../hoc/AuxWrapper/AuxWrapper';
 import Burger from '../../components/Burger/Burger';
