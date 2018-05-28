@@ -1,4 +1,4 @@
-import * as actionTypes from './actions';
+import * as actionTypes from './actions/actions';
 
 const initialState = {
     ingredients: {
@@ -17,6 +17,7 @@ const INGREDIENT_PRICES = {
     bacon: 0.7
 };
 
+// Cannot execute async code in here. Not even with promises. Net to use action creators
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.ADD_INGREDIENT:
