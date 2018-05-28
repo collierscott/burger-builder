@@ -1,6 +1,12 @@
 export {
     ADD_INGREDIENT,
     REMOVE_INGREDIENT,
+    SET_INGREDIENTS,
+    FETCH_INGREDIENTS_FAILED
+} from './actionTypes';
+
+export {
     addIngredient,
-    removeIngredient
-} from './actions';
+    removeIngredient,
+    initIngredients
+} from './burgerBuilder';

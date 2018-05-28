@@ -6,27 +6,28 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
 import App from './App';
-import reducer from './store/reducer';
+import burgerBuilderReducer from './store/reducers/burgerBuilder';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // This is the place to add middleware if it is needed. i.e. logger
-const logger = store => {
-    return next => {
-        return action => {
-            console.log('[Middleware] Dispatching', action);
-            // Lets things continue
-            const result = next(action);
-            console.log('[Middleware] next state', store.getState());
-            return result;
-        }
-    }
-};
+// To enable this, uncomment and add to applyMiddleware below
+// const logger = store => {
+//     return next => {
+//         return action => {
+//             console.log('[Middleware] Dispatching', action);
+//             // Lets things continue
+//             const result = next(action);
+//             console.log('[Middleware] next state', store.getState());
+//             return result;
+//         }
+//     }
+// };
 
-const store = createStore(reducer, composeEnhancers(
-    applyMiddleware(logger, thunk))
+const store = createStore(burgerBuilderReducer, composeEnhancers(
+    applyMiddleware(thunk))
 );
 
 const app = (

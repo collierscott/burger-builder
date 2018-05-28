@@ -1,14 +1,10 @@
-import * as actionTypes from './actions/index';
-import { updateObject} from "./utility";
+import * as actionTypes from '../actions/index';
+import { updateObject} from "../utility";
 
 const initialState = {
-    ingredients: {
-        salad: 0,
-        bacon: 0,
-        cheese: 0,
-        meat: 0
-    },
-    totalPrice: 4
+    ingredients: null,
+    totalPrice: 4,
+    error: false
 };
 
 const INGREDIENT_PRICES = {
@@ -19,7 +15,7 @@ const INGREDIENT_PRICES = {
 };
 
 // Cannot execute async code in here. Not even with promises. Net to use action creators
-const reducer = ( state = initialState, action ) => {
+const burgerBuilder = (state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.ADD_INGREDIENT:
             return updateObject(state, {
@@ -33,9 +29,13 @@ const reducer = ( state = initialState, action ) => {
                 }),
                 totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
             });
+        case actionTypes.SET_INGREDIENTS:
+            return updateObject(state,  {ingredients: action.ingredients, error: false});
+        case actionTypes.FETCH_INGREDIENTS_FAILED:
+            return updateObject(state, {error: true});
         default:
             return state;
     }
 };
 
-export default reducer;
+export default burgerBuilder;
