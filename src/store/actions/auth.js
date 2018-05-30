@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-orders';
+import axios from '../../axios-auth';
 
 export const authStart = () => {
     return {
@@ -22,34 +22,48 @@ export const authFail = (error) => {
   }
 };
 
+export const checkAuthTimeout = (expirationTime) => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(logout());
+        }, expirationTime * 1000);
+    }
+};
+
+export const logout = () => {
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    };
+};
+
 export const auth = (email, password, isSignup) => {
     return dispatch => {
         dispatch(authStart());
         const authData = {
-            username: email,
             email: email,
-            password: password
+            password: password,
+            returnSecureToken: true
         };
 
+        const key = 'AIzaSyDkGmf14VBeTxx57FsLtqLnA9FyA1D_0e4';
+
         if(isSignup) {
-            axios.post('/_User', authData)
+            axios.post('/signupNewUser?key=' + key, authData)
                 .then(response => {
-                    console.log(response);
-                    dispatch(authSuccess(response.data.sessionToken, response.data.objectId));
+                    dispatch(authSuccess(response.data.idToken, response.data.localId));
+                    dispatch(checkAuthTimeout(response.data.expiresIn))
                 })
                 .catch(err => {
-                    console.log(err);
-                    dispatch(authFail(err));
+                    dispatch(authFail(err.response.data.error));
                 });
         } else {
-            axios.get('/_User', {params: authData})
+            axios.post('/verifyPassword?key=' + key, authData)
                 .then(response => {
-                    console.log(response);
-                    dispatch(authSuccess(response.data))
+                    dispatch(authSuccess(response.data.idToken, response.data.localId));
+                    dispatch(checkAuthTimeout(response.data.expiresIn));
                 })
                 .catch(err => {
-                    console.log(err);
-                    dispatch(authFail(err));
+                    dispatch(authFail(err.response.data.error));
                 });
         }
     }
