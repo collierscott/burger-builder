@@ -30,15 +30,13 @@ export const fetchIngredientsFailed = () => {
 
 export const initIngredients = () => {
   return dispatch => {
-      axios.get('/Ingredient')
+      axios.get('/ingredients.json')
           .then(response => {
-              // Convert the array of ingredients and amounts to an object
-              let ingredientsResult =  Object.assign(...response.data.results
-                  .map(d => ({[d.name]: d.amount}))
-              );
-              dispatch(setIngredients(ingredientsResult));
+              console.log(response);
+              dispatch(setIngredients(response.data));
           })
           .catch(error => {
+              console.log(error);
               dispatch(fetchIngredientsFailed());
           });
   }
