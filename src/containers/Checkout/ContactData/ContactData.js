@@ -6,7 +6,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
-import { updateObject} from '../../../shared/utility';
+import { updateObject, checkValidity} from '../../../shared/utility';
 import classes from './ContactData.css';
 
 class ContactData extends Component {
@@ -95,28 +95,6 @@ class ContactData extends Component {
         formIsValid: false
     };
 
-    checkValidity (value, rules) {
-        let isValid = true;
-
-        if(!rules) {
-            return true;
-        }
-
-        if(isValid && rules.required) {
-            isValid = value.trim() !== '';
-        }
-
-        if(isValid && rules.minLength) {
-            isValid = value.length >= rules.minLength;
-        }
-
-        if(isValid && rules.maxLength) {
-            isValid = value.length <= rules.maxLength ;
-        }
-
-        return isValid;
-    };
-
     orderHandler = (event) => {
         event.preventDefault();
         const formData = {};
@@ -142,7 +120,7 @@ class ContactData extends Component {
         const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
             value: event.target.value,
             touched: true,
-            valid: this.checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation)
+            valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation)
         });
 
         const updatedOrderForm = updateObject(this.state.orderForm, {
